@@ -1,0 +1,5018 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EDULAB",
+    "description": "EDULAB",
+    "version": "0.1.1"
+  },
+  "servers": [
+    {
+      "url": "https://edulab.pp.ua/api"
+    },
+    {
+      "url": "http://127.0.0.1:5000/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "User",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Group",
+      "description": "Group endpoints"
+    },
+    {
+      "name": "Course",
+      "description": "Course endpoints"
+    },
+    {
+      "name": "Material",
+      "description": "Material endpoints"
+    },
+    {
+      "name": "Homework",
+      "description": "Homework endpoints"
+    },
+    {
+      "name": "Task",
+      "description": "Task endpoints"
+    },
+    {
+      "name": "Test",
+      "description": "Test endpoints"
+    },
+    {
+      "name": "Test Result",
+      "description": "Test result endpoints"
+    },
+    {
+      "name": "Notify",
+      "description": "Notifi endpoints"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Register user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "registerUser",
+        "requestBody": {
+          "description": "Created user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegistration"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "User successfully registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "User successfully registered"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Sign in user",
+        "description": "",
+        "operationId": "userSignIn",
+        "requestBody": {
+          "description": "Sign in user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserSignin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "User was created success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "accessToken": {
+                      "type": "string",
+                      "examples": [
+                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA3LCJmaXJzdE5hbWUiOiJPbGVnIiwibGFzdE5hbWUiOiJMdXpobnlhayIsImVtYWlsIjoib2xlZy5sdXpobnlha0BnbWFpbC5jb20iLCJyb2xlIjoidGVhY2hlciIsImlhdCI6MTcxNjIwNTY3MywiZXhwIjoxNzE4Nzk3NjczfQ.e9jYCHhGMKUzZpo0QCpaFW6fcaSZ5kazGv7MxobINE8"
+                      ]
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/import": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Import users",
+        "description": "",
+        "operationId": "importUsers",
+        "requestBody": {
+          "description": "Import users",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserImport"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "Users was created success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/change-password": {
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Change password",
+        "description": "",
+        "operationId": "changePassword",
+        "requestBody": {
+          "description": "Change password",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePassword"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "User was updated success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Logout user",
+        "description": "",
+        "operationId": "logoutUser",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/auth/restore-user": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Restore user",
+        "description": "",
+        "operationId": "restoreUser",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/auth/refresh-user": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Refresh user",
+        "description": "",
+        "operationId": "refreshUser",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/auth/activate/{link}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Activate User",
+        "description": "",
+        "operationId": "activateUser",
+        "parameters": [
+          {
+            "name": "link",
+            "in": "path",
+            "description": "Link",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get user by id",
+        "description": "",
+        "operationId": "getUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User was fetched success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "User was fetched success"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "name that need to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existent user in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Delete user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The name that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/courses": {
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Get courses",
+        "description": "",
+        "operationId": "getCourses",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Course"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Create Course",
+        "description": "",
+        "operationId": "createCourse",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Create Course",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCourse"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Course was created success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Course was created success"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Course"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/courses/{id}": {
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Get course by id",
+        "description": "",
+        "operationId": "getCourseById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Course"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Update Course",
+        "description": "",
+        "operationId": "updateCourse",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Update Course",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCourse"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Course was updated success"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Course"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Course test by id",
+        "description": "",
+        "operationId": "deleteCourseById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Course"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course with given id is not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/courses/{id}/status": {
+      "patch": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Update Course status",
+        "description": "",
+        "operationId": "updateCourseStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Update Course status",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "isActive": {
+                    "type": "boolean",
+                    "examples": [
+                      true
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Course status was updated success"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Course"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/courses/{id}/lessons": {
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Get lessons by course",
+        "description": "",
+        "operationId": "getAllLessonByCourse",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Lesson"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Create Lesson",
+        "description": "",
+        "operationId": "createLesson",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Create Lesson",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLesson"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lesson was created success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Lesson was created success"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Lesson"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/courses/{courseId}/lessons{id}": {
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Get Lesson by id",
+        "description": "",
+        "operationId": "getLessonById",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Lesson ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Lesson"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Lesson with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Update Lesson",
+        "description": "",
+        "operationId": "updateLesson",
+        "parameters": [
+          {
+            "courseId": "courseId",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Lesson ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Update Course",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLesson"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Lesson was updated success"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Lesson"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Lesson with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Lesson test by id",
+        "description": "",
+        "operationId": "deleteLessonById",
+        "parameters": [
+          {
+            "courseId": "courseId",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Lesson ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Lesson"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Lesson with given id is not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/courses/{courseId}/lessons{id}/addtest": {
+      "post": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Assign Test To Lesson",
+        "description": "",
+        "operationId": "assignTestToLesson",
+        "parameters": [
+          {
+            "courseId": "courseId",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Lesson ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Assign Test To Lesson",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "testId": {
+                    "type": "number",
+                    "examples": [
+                      3
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Test To Lesson was assign success"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Lesson with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/courses/{courseId}/lessons{id}/tests": {
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Get Test by Lesson",
+        "description": "",
+        "operationId": "getTestByLesson",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Lesson ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Test"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Test not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/courses/{courseId}/lessons{id}/removetest": {
+      "delete": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Remove Test from Lesson",
+        "description": "",
+        "operationId": "removeTestFromLesson",
+        "parameters": [
+          {
+            "courseId": "courseId",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Lesson ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Test was remove from Lesson"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Test with given id is not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/courses/{courseId}/{lessonId}/materials": {
+      "get": {
+        "tags": [
+          "Material"
+        ],
+        "summary": "Get all Material by lesson",
+        "description": "",
+        "operationId": "getAllMaterialByLesson",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lessonId",
+            "in": "path",
+            "description": "Lesson ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Material"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Material"
+        ],
+        "summary": "Create Material",
+        "description": "",
+        "operationId": "createMaterial",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Create Material",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Material"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Material"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/courses/{courseId}/{lessonId}/materials/{id}": {
+      "patch": {
+        "tags": [
+          "Material"
+        ],
+        "summary": "Update Material",
+        "description": "",
+        "operationId": "updateMaterial",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lessonId",
+            "in": "path",
+            "description": "Lesson ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Material ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Update Material",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Material"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Material"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Material"
+        ],
+        "summary": "Delete Material",
+        "description": "",
+        "operationId": "deleteMaterial",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lessonId",
+            "in": "path",
+            "description": "Lesson ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Material ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Material"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/courses/{courseId}/{lessonId}/homeworks": {
+      "get": {
+        "tags": [
+          "Homework"
+        ],
+        "summary": "Get HomeWork by lesson",
+        "description": "",
+        "operationId": "getHomeWorkByLesson",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lessonId",
+            "in": "path",
+            "description": "Lesson ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Homework"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Homework"
+        ],
+        "summary": "Create Homework",
+        "description": "",
+        "operationId": "createHomeWork",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Create Homework",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Homework"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Homework"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/courses/{courseId}/{lessonId}/homworks/{id}": {
+      "patch": {
+        "tags": [
+          "Homework"
+        ],
+        "summary": "Update Homework",
+        "description": "",
+        "operationId": "updateupdateHomeWork",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lessonId",
+            "in": "path",
+            "description": "Lesson ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Homework ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Update Homework",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Homework"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Homework"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Homework"
+        ],
+        "summary": "Delete Homework",
+        "description": "",
+        "operationId": "deleteHomeWork",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lessonId",
+            "in": "path",
+            "description": "Lesson ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Homework ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Homework"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/groups": {
+      "get": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Get all groups",
+        "description": "",
+        "operationId": "getAllGroups",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Group"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Create Group",
+        "description": "",
+        "operationId": "createGroup",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Create Group",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateGroup"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Group"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Group with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/groups/{croupId}": {
+      "get": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Get group by id",
+        "description": "",
+        "operationId": "getGroupById",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "Group ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Group"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Group with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Update Group",
+        "description": "",
+        "operationId": "updateGroupByID",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "Group ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Update Group",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateGroup"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Group"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Group with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Delete group by id",
+        "description": "",
+        "operationId": "deleteGroupById",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "Group ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Group"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Group with given id is not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/groups/{croupId}/students": {
+      "get": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Get students by group",
+        "description": "",
+        "operationId": "getAllGroupStudents",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "Group ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Student"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Group with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Add student to group",
+        "description": "",
+        "operationId": "addStudentToGroup",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "Group ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Add student to group",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "studentId": {
+                    "type": "number",
+                    "examples": [
+                      3
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Group with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/groups/{croupId}/students/{studentId}": {
+      "delete": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Remove student from group",
+        "description": "",
+        "operationId": "removeStudentFromGroup",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "Group ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "studenId",
+            "in": "path",
+            "description": "Student ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/groups/{croupId}/courses": {
+      "get": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Get courses by group",
+        "description": "",
+        "operationId": "getAllGroupCourses",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "Group ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Course"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Group with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Update group courses",
+        "description": "",
+        "operationId": "updateGroupCourses",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "Group ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Update group courses",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "studentId": {
+                    "type": "number",
+                    "examples": [
+                      3
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Group with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/groups/{croupId}/teachers": {
+      "post": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Add teacher to group",
+        "description": "",
+        "operationId": "addTeacherToGroup",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "Group ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Add teacher to group",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "studentId": {
+                    "type": "number",
+                    "examples": [
+                      3
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Group with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Remove teacher from group",
+        "description": "",
+        "operationId": "removeTeacherFromGroup",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "Group ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/tasks": {
+      "get": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Get all tasks by user id",
+        "description": "",
+        "operationId": "getAllTasksByUserId",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Task"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/task/{id}": {
+      "get": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Get task by id",
+        "description": "",
+        "operationId": "getTaskDetailsById",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "Task ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task with given id is not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Add task grade",
+        "description": "",
+        "operationId": "addTaskGrade",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "Task ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Add task grade",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "grade": {
+                    "type": "number",
+                    "examples": [
+                      100
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Task"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Delete task grade",
+        "description": "",
+        "operationId": "deleteTaskGrade",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "Task ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Test with given id is not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/task/{id}/status": {
+      "patch": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Update task status",
+        "description": "",
+        "operationId": "updateTaskStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Task ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Update task status",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "number",
+                    "examples": [
+                      "done"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Task"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/task/{id}/pass": {
+      "post": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Send Homework",
+        "description": "",
+        "operationId": "sendHomework",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Task ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Send Homework",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "file"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/task/{id}/info": {
+      "get": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Get teacher by task id",
+        "description": "",
+        "operationId": "getTeacherByTaskId",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Task ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Get teacher by task id",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "number",
+                    "examples": [
+                      "done"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/create-task": {
+      "post": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Create tasks for student from group",
+        "description": "",
+        "operationId": "createTasksForStudentFromGroup",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Task"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/tests": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Get tests",
+        "description": "",
+        "operationId": "getTests",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Test"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Create Test",
+        "description": "",
+        "operationId": "createTest",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Create Test",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Test"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/tests/{testId}": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Get test by id",
+        "description": "",
+        "operationId": "getTestById",
+        "parameters": [
+          {
+            "name": "testId",
+            "in": "path",
+            "description": "Test ID",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Test"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Id is incorrect",
+            "content": {}
+          },
+          "401": {
+            "description": "Authentication failed",
+            "content": {}
+          },
+          "404": {
+            "description": "Test with given id is not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Update Test",
+        "description": "",
+        "operationId": "updateTest",
+        "parameters": [
+          {
+            "name": "testId",
+            "in": "path",
+            "description": "Test ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "update Test",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Test"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Test with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Delete test by id",
+        "description": "",
+        "operationId": "deleteTestById",
+        "parameters": [
+          {
+            "name": "testId",
+            "in": "path",
+            "description": "Test ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Test"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Test with given id is not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/tests/tasks/{id}": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Get test by task id",
+        "description": "",
+        "operationId": "getTestByTaskId",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Task ID.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Test"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Test with given task id is not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/tests/questions": {
+      "post": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Add question",
+        "description": "",
+        "operationId": "addQuestion",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Add Question",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuestion"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Question"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/tests/questions/{questionId}": {
+      "put": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Update Question",
+        "description": "",
+        "operationId": "updateQuestion",
+        "parameters": [
+          {
+            "name": "questionId",
+            "in": "path",
+            "description": "Question ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "update Question",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuestion"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Question"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Question with given id is not found"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Test"
+        ],
+        "summary": "Delete question by id",
+        "description": "",
+        "operationId": "deleteQuestionById",
+        "parameters": [
+          {
+            "name": "questionId",
+            "in": "path",
+            "description": "Question ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Question"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Question with given id is not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/tests/results": {
+      "post": {
+        "tags": [
+          "Test Result"
+        ],
+        "summary": "Create Test result",
+        "description": "",
+        "operationId": "createTestResult",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Create Test result",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTestResult"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/tests/results/{taskId}": {
+      "get": {
+        "tags": [
+          "Test Result"
+        ],
+        "summary": "Get test by task id",
+        "description": "",
+        "operationId": "getTestResultByTaskId",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "Task ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/TestResult"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Test result with given id is not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Test Result"
+        ],
+        "summary": "Delete test result by id",
+        "description": "",
+        "operationId": "deleteTestResultById",
+        "parameters": [
+          {
+            "name": "testResultId",
+            "in": "path",
+            "description": "TestResult ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/TestResult"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Test result with given id is not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/notify": {
+      "get": {
+        "tags": [
+          "Notify"
+        ],
+        "summary": "Get all notify",
+        "description": "",
+        "operationId": "getAllNotify",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Notifys"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Notify"
+        ],
+        "summary": "Update Status",
+        "description": "",
+        "operationId": "updateStatus",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Update Status",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Notify"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Notify"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/notify/{status}": {
+      "get": {
+        "tags": [
+          "Notify"
+        ],
+        "summary": "Get Notify by status",
+        "description": "",
+        "operationId": "getQntNotifyByStatus",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "path",
+            "description": "Test ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data received successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "examples": [
+                        "success"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "examples": [
+                        "Data received successfully"
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Notify"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Id is incorrect",
+            "content": {}
+          },
+          "401": {
+            "description": "Authentication failed",
+            "content": {}
+          },
+          "404": {
+            "description": "Notify with given id is not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserRegistration": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "examples": [
+              "John"
+            ]
+          },
+          "lastName": {
+            "type": "string",
+            "examples": [
+              "James"
+            ]
+          },
+          "email": {
+            "type": "string",
+            "examples": [
+              "teacher@gmail.com"
+            ]
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "teacher",
+              "student"
+            ],
+            "examples": [
+              "teacher"
+            ]
+          }
+        }
+      },
+      "ChangePassword": {
+        "type": "object",
+        "properties": {
+          "oldPassword": {
+            "type": "string",
+            "examples": [
+              "********"
+            ]
+          },
+          "newPassword": {
+            "type": "string",
+            "examples": [
+              "********"
+            ]
+          }
+        }
+      },
+      "UserImport": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/UserRegistration"
+        }
+      },
+      "UserSignin": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "examples": [
+              "teacher+1@gmail.com"
+            ]
+          },
+          "password": {
+            "type": "string",
+            "examples": [
+              "Password_1"
+            ]
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "examples": [
+              10
+            ]
+          },
+          "firstName": {
+            "type": "string",
+            "examples": [
+              "John"
+            ]
+          },
+          "lastName": {
+            "type": "string",
+            "examples": [
+              "James"
+            ]
+          },
+          "email": {
+            "type": "string",
+            "examples": [
+              "john@email.com"
+            ]
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "teacher",
+              "student"
+            ],
+            "examples": [
+              "teacher"
+            ]
+          },
+          "avatarUrl": {
+            "type": "string",
+            "examples": [
+              "http://localhost:5000/avatar.png"
+            ]
+          },
+          "isSubscribedToEmails": {
+            "type": "string",
+            "examples": [
+              false
+            ]
+          }
+        }
+      },
+      "Student": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "examples": [
+              10
+            ]
+          },
+          "firstName": {
+            "type": "string",
+            "examples": [
+              "John"
+            ]
+          },
+          "lastName": {
+            "type": "string",
+            "examples": [
+              "James"
+            ]
+          }
+        }
+      },
+      "Group": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "examples": [
+              10
+            ]
+          },
+          "name": {
+            "type": "string",
+            "examples": [
+              "T-22"
+            ]
+          }
+        }
+      },
+      "CreateGroup": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "examples": [
+              "T-22"
+            ]
+          }
+        }
+      },
+      "Lesson": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "examples": [
+              10
+            ]
+          },
+          "courseId": {
+            "type": "number",
+            "examples": [
+              10
+            ]
+          },
+          "title": {
+            "type": "string",
+            "examples": [
+              "Basic Geometric Shapes"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "examples": [
+              "Introduction to basic geometric shapes."
+            ]
+          },
+          "orderNumber": {
+            "type": "number",
+            "examples": [
+              1
+            ]
+          }
+        }
+      },
+      "Course": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "examples": [
+              10
+            ]
+          },
+          "teacherId": {
+            "type": "number",
+            "examples": [
+              10
+            ]
+          },
+          "title": {
+            "type": "string",
+            "examples": [
+              "Geometry Basics"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "examples": [
+              "Geometry Basics is a foundational course designed to introduce learners to the fundamental concepts and principles of geometry."
+            ]
+          },
+          "yearCourse": {
+            "type": "number",
+            "examples": [
+              2024
+            ]
+          },
+          "isActive": {
+            "type": "boolean",
+            "examples": [
+              true
+            ]
+          },
+          "imgUrl": {
+            "type": "string",
+            "examples": [
+              "https://goodpoint-files-upload.s3.eu-central-1.amazonaws.com/edulab/9feb341d1d4d1c77d542cf700.jpg"
+            ]
+          },
+          "lessons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Lesson"
+            }
+          }
+        }
+      },
+      "CreateCourse": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "examples": [
+              "Geometry Basics"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "examples": [
+              "Geometry Basics is a foundational course designed to introduce learners to the fundamental concepts and principles of geometry."
+            ]
+          },
+          "yearCourse": {
+            "type": "number",
+            "examples": [
+              2024
+            ]
+          },
+          "isActive": {
+            "type": "boolean",
+            "examples": [
+              true
+            ]
+          },
+          "imgUrl": {
+            "type": "string",
+            "examples": [
+              "https://goodpoint-files-upload.s3.eu-central-1.amazonaws.com/edulab/9feb341d1d4d1c77d542cf700.jpg"
+            ]
+          }
+        }
+      },
+      "TestTask": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "examples": [
+              11
+            ]
+          },
+          "title": {
+            "type": "string",
+            "examples": [
+              "JavaScript"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "examples": [
+              "Test JavaScript"
+            ]
+          },
+          "scores": {
+            "type": "number",
+            "examples": [
+              80
+            ]
+          },
+          "maxScores": {
+            "type": "number",
+            "examples": [
+              100
+            ]
+          },
+          "correctAnswers": {
+            "type": "number",
+            "examples": [
+              8
+            ]
+          },
+          "totalQuestions": {
+            "type": "number",
+            "examples": [
+              10
+            ]
+          }
+        }
+      },
+      "Task": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "examples": [
+              62
+            ]
+          },
+          "lessonId": {
+            "type": "number",
+            "examples": [
+              100
+            ]
+          },
+          "studentId": {
+            "type": "number",
+            "examples": [
+              34
+            ]
+          },
+          "status": {
+            "type": "string",
+            "examples": [
+              "null"
+            ]
+          },
+          "taskType": {
+            "type": "string",
+            "examples": [
+              "test"
+            ]
+          },
+          "grade": {
+            "type": "number",
+            "examples": [
+              80
+            ]
+          },
+          "lessonTitle": {
+            "type": "string",
+            "examples": [
+              "JavaScript"
+            ]
+          },
+          "courseTitle": {
+            "type": "string",
+            "examples": [
+              "Full Stack Developerd"
+            ]
+          },
+          "groupName": {
+            "type": "string",
+            "examples": [
+              "KA-21"
+            ]
+          },
+          "lastName": {
+            "type": "string",
+            "examples": [
+              "Brown"
+            ]
+          },
+          "firstName": {
+            "type": "string",
+            "examples": [
+              "Noah"
+            ]
+          },
+          "test": {
+            "$ref": "#/components/schemas/TestTask"
+          }
+        }
+      },
+      "CreateTask": {
+        "type": "object",
+        "properties": {
+          "lessonId": {
+            "type": "number",
+            "examples": [
+              100
+            ]
+          },
+          "studentId": {
+            "type": "number",
+            "examples": [
+              34
+            ]
+          },
+          "status": {
+            "type": "string",
+            "examples": [
+              "null"
+            ]
+          },
+          "taskType": {
+            "type": "string",
+            "examples": [
+              "test"
+            ]
+          },
+          "grade": {
+            "type": "number",
+            "examples": [
+              80
+            ]
+          }
+        }
+      },
+      "AnswerOptions": {
+        "required": [
+          "id",
+          "answerText",
+          "isCorrect",
+          "questionId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "answerText": {
+            "type": "string",
+            "examples": [
+              "1"
+            ]
+          },
+          "isCorrect": {
+            "type": "boolean",
+            "examples": [
+              true
+            ]
+          },
+          "questionId": {
+            "type": "number",
+            "examples": [
+              3
+            ]
+          }
+        }
+      },
+      "Question": {
+        "required": [
+          "id",
+          "questionText",
+          "questionType",
+          "testId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "examples": [
+              3
+            ]
+          },
+          "questionText": {
+            "type": "string",
+            "examples": [
+              "What is it"
+            ]
+          },
+          "questionType": {
+            "type": "string",
+            "examples": [
+              "single"
+            ]
+          },
+          "testId": {
+            "type": "number",
+            "examples": [
+              1
+            ]
+          },
+          "imgUrl": {
+            "type": "string",
+            "examples": [
+              "https://goodpoint-files-upload.s3.eu-central-1.amazonaws.com/edulab/2d96f1d8a78b5b8ae00cc4b03.png"
+            ]
+          },
+          "answerOptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AnswerOptions"
+            }
+          }
+        }
+      },
+      "Test": {
+        "required": [
+          "id",
+          "title",
+          "description",
+          "maxScores",
+          "teacherId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string",
+            "examples": [
+              "Math Algebra"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "examples": [
+              "Test Algebra"
+            ]
+          },
+          "maxScores": {
+            "type": "number",
+            "examples": [
+              100
+            ]
+          },
+          "teacherId": {
+            "type": "number",
+            "examples": [
+              2
+            ]
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Question"
+            }
+          }
+        }
+      },
+      "Answer": {
+        "required": [
+          "questionId",
+          "answers"
+        ],
+        "type": "object",
+        "properties": {
+          "questionId": {
+            "type": "number",
+            "examples": [
+              3
+            ]
+          },
+          "answers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "answerText": {
+                  "type": "string",
+                  "examples": [
+                    "Answer text"
+                  ]
+                },
+                "answerId": {
+                  "type": "number",
+                  "examples": [
+                    3
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "TestResult": {
+        "required": [
+          "id",
+          "taskId",
+          "testId",
+          "totalQuestions",
+          "correctAnswers",
+          "status",
+          "answers"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "taskId": {
+            "type": "number"
+          },
+          "testId": {
+            "type": "number"
+          },
+          "scores": {
+            "type": "number",
+            "examples": [
+              80
+            ]
+          },
+          "totalQuestions": {
+            "type": "number",
+            "examples": [
+              10
+            ]
+          },
+          "correctAnswers": {
+            "type": "number",
+            "examples": [
+              8
+            ]
+          },
+          "status": {
+            "type": "string",
+            "examples": [
+              "done"
+            ]
+          },
+          "answers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Answer"
+            }
+          }
+        }
+      },
+      "CreateTestResult": {
+        "required": [
+          "taskId",
+          "testId",
+          "answers"
+        ],
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "number"
+          },
+          "testId": {
+            "type": "number"
+          },
+          "answers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Answer"
+            }
+          }
+        }
+      },
+      "CreateTest": {
+        "required": [
+          "title",
+          "description",
+          "maxScores"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "examples": [
+              "Math Algebra"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "examples": [
+              "Test Algebra"
+            ]
+          },
+          "maxScores": {
+            "type": "number",
+            "examples": [
+              100
+            ]
+          }
+        }
+      },
+      "Material": {
+        "required": [
+          "title",
+          "file"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "examples": [
+              "JavaScript"
+            ]
+          },
+          "file": {
+            "type": "string",
+            "examples": [
+              "JavaScript.pdf"
+            ]
+          }
+        }
+      },
+      "Homework": {
+        "required": [
+          "title",
+          "file"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "examples": [
+              "JavaScript"
+            ]
+          },
+          "file": {
+            "type": "string",
+            "examples": [
+              "JavaScript.pdf"
+            ]
+          }
+        }
+      },
+      "Notify": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string",
+            "examples": [
+              "viewed"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "examples": [
+              "studentHWdone"
+            ]
+          },
+          "date": {
+            "type": "string",
+            "examples": [
+              "2024-05-24T13:50:27.309Z"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "examples": [
+              "Student from group: TB-21 completed homework by course: Introduction to Mathematics, lesson: Geometry Basics"
+            ]
+          }
+        }
+      },
+      "Notifys": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "examples": [
+              "viewed"
+            ]
+          },
+          "total": {
+            "type": "number",
+            "examples": [
+              0
+            ]
+          },
+          "cursor": {
+            "type": "number",
+            "examples": [
+              125
+            ]
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

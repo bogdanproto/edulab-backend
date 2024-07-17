@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  frontend:
+    image: probogdan/edulab-fe:main
+    ports:
+      - 8080:8080
+    env_file:
+      - .env
+    environment:
+      - VITE_BASE_URL=${VITE_BASE_URL}
+    depends_on:
+      - backend
+  backend:
+    image: probogdan/edulab-be:main
+    ports:
+      - 5000:5000
+    env_file:
+      - .env
+    environment:
+      - PGUSER=${PGUSER}
+      - PGHOST=${PGHOST}
+      - PGDATABASE=${PGDATABASE}
+      - PGPASSWORD=${PGPASSWORD}      
+      - PGPORT=${PGPORT}
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - API_URL=${API_URL}
+      - CLIENT_URL=${CLIENT_URL}
+      - JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_BUCKET_NAME=${AWS_BUCKET_NAME}
+      - AWS_BUCKET_REGION=${AWS_BUCKET_REGION}

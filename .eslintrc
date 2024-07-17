@@ -1,0 +1,22 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "metarhia",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript"
+  ],
+  "rules": {
+    "max-len": ["error", { "code": 120 }]
+  },
+  "overrides": [
+    {
+      "files": ["test/**/*"],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}
